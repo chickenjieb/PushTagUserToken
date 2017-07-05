@@ -34,17 +34,17 @@ function onPushwooshInitialized(pushNotification) {
     );
 
     //settings tags
-    pushNotification.setTags({
-            username: "test"
-            // intTagName: 10
-        },
-        function(status) {
-            console.info('setTags success: ' + JSON.stringify(status));
-        },
-        function(status) {
-            console.warn('setTags failed');
-        }
-    );
+    // pushNotification.setTags({
+    //         username: "test"
+    //         // intTagName: 10
+    //     },
+    //     function(status) {
+    //         console.info('setTags success: ' + JSON.stringify(status));
+    //     },
+    //     function(status) {
+    //         console.warn('setTags failed');
+    //     }
+    // );
 
     pushNotification.getTags(
         function(status) {
@@ -170,6 +170,14 @@ function pushMessage(){
           },
           function(status) {
               console.warn('setTags failed');
+          }
+      );
+      pushNotification.getTags(
+          function(status) {
+              console.info('getTags success: ' + JSON.stringify(status));
+          },
+          function(status) {
+              console.warn('getTags failed');
           }
       );
   }
