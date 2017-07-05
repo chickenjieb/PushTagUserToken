@@ -81,7 +81,7 @@ function initPushwoosh() {
     //initialize Pushwoosh with projectid: "GOOGLE_PROJECT_ID", appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
     pushNotification.onDeviceReady({
         projectid: "647864599214",
-        appid: "6612A-7C4FC",
+        appid: "24929-CDE68",
         serviceName: ""
     });
 
@@ -97,6 +97,63 @@ function initPushwoosh() {
         }
     );
 
+}
+
+function resetUsername() {
+    var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+    var username = document.getElementById('inputUsername').value;
+    window.alert(username);
+    pushNotification.setTags({
+            username: username
+        },
+        function(status) {
+            console.info('setTags success: ' + JSON.stringify(status));
+        },
+        function(status) {
+            console.warn('setTags failed');
+        }
+    );
+    pushNotification.getTags(
+        function(status) {
+            console.info('getTags success: ' + JSON.stringify(status));
+        },
+        function(status) {
+            console.warn('getTags failed');
+        }
+    );
+}
+
+// reset UserId value
+function resetUserID(){
+  var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+  var userID = document.getElementById('inputUserID').value;
+  window.alert(userID);
+  pushNotification.setUserId(userID);
+}
+
+// push message to specified receiver using UserID
+function pushMessage(){
+  var message = document.getElementById('inputMessage').value;
+  var receiver = document.getElementById('inputReceiver').value;
+  $.ajax({
+  type: "POST",
+  url: "https://cp.pushwoosh.com/json/1.3/createMessage",
+  data: JSON.stringify({
+      "request": {
+          "application": "24929-CDE68",
+          "auth": "w4CR0pvi9NVjI2fhSX2rbOQe8rVOjIWDPth0IVi5WelprUPOl2eOPHw8qP5WMCfM5VI1oh6aDSF0oFO6Ts3V",
+          "notifications": [{
+              "send_date": "now",
+              "ignore_user_timezone": true,
+              "content": message,
+              "users":[receiver]
+          }]
+      }
+  }),
+  dataType: "json"
+  }).done(function(data) {
+      console.log(data);
+  });
 }
 
 // <script type="text/javascript">
