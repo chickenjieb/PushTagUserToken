@@ -23,6 +23,7 @@ function onPushwooshInitialized(pushNotification) {
     pushNotification.getPushToken(
         function(token) {
             console.info('push token: ' + token);
+            window.alert('Token: '+ token);
         }
     );
 
@@ -30,6 +31,7 @@ function onPushwooshInitialized(pushNotification) {
     pushNotification.getPushwooshHWID(
         function(token) {
             console.info('Pushwoosh HWID: ' + token);
+            window.alert('Hardware ID: '+ token);
         }
     );
 
